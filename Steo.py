@@ -83,6 +83,25 @@ def decode():
             else:
                 binstr += '1'
 
+
+        # Main Function
+def main():
+    a = int(input(":: Welcome to Steganography ::\n"
+                        "1. Encode\n2. Decode\n"))
+    if (a == 1):
+        encode()
+
+    elif (a == 2):
+        print("Decoded Word :  " + decode())
+    else:
+        raise Exception("Enter correct input")
+
+# Driver Code
+if __name__ == '__main__' :
+
+    # Calling main function
+    main()
+
         data += chr(int(binstr, 2))
         if (pixels[-1] % 2 != 0):
             return data
