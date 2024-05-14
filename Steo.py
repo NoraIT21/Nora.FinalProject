@@ -47,16 +47,19 @@ def clear_low_order_bits(pixels) -> None:
             pixels[row, col, 0] &= ~1
 
 
-def decode_image(filename: str) -> str:
-    img = Image.open(filename)
-    result = ''.join(chars_provider(img.getdata(band=0)))
-    img.close()
-    return result
+def encode():
+    img = input("Enter image name(with extension) : ")
+    image = Image.open(img, 'r')
 
-from stegapy import decode_image
+    data = input("Enter data to be encoded : ")
+    if (len(data) == 0):
+        raise ValueError('Data is empty')
 
-decoded = decode_image('secret-image.png')
-print(decoded)
+    newimg = image.copy()
+    encode_enc(newimg, data)
+
+    new_img_name = input("Enter the name of new image(with extension) : ")
+    newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
 
 
 from stegapy import create_image
