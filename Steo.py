@@ -61,13 +61,29 @@ def encode():
     new_img_name = input("Enter the name of new image(with extension) : ")
     newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
 
+# Decode the data in the image
+def decode():
+    img = input("Enter image name(with extension) : ")
+    image = Image.open(img, 'r')
 
-from stegapy import create_image
+    data = ''
+    imgdata = iter(image.getdata())
 
-message = '''Steganography is the practice of concealing a file, 
-message, image, or video within another file, message, image,
-or video. The word steganography combines the Greek words 
-steganos, meaning "covered or concealed", and graphe meaning
-"writing".'''
-create_image(message, 'original-image.png', 'secret-image.png')
+    while (True):
+        pixels = [value for value in imgdata.__next__()[:3] +
+                                imgdata.__next__()[:3] +
+                                imgdata.__next__()[:3]]
+
+        # string of binary data
+        binstr = ''
+
+        for i in pixels[:8]:
+            if (i % 2 == 0):
+                binstr += '0'
+            else:
+                binstr += '1'
+
+        data += chr(int(binstr, 2))
+        if (pixels[-1] % 2 != 0):
+            return data
 
