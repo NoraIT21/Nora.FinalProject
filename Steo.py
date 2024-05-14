@@ -52,3 +52,8 @@ def decode_image(filename: str) -> str:
     result = ''.join(chars_provider(img.getdata(band=0)))
     img.close()
     return result
+
+from stegapy import decode_image
+
+decoded = decode_image('secret-image.png')
+print(decoded)
